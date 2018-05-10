@@ -6,7 +6,7 @@
 #
 Name     : libburn
 Version  : 1.4.8
-Release  : 3
+Release  : 4
 URL      : http://files.libburnia-project.org/releases/libburn-1.4.8.tar.gz
 Source0  : http://files.libburnia-project.org/releases/libburn-1.4.8.tar.gz
 Source99 : http://files.libburnia-project.org/releases/libburn-1.4.8.tar.gz.sig
