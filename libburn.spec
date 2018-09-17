@@ -5,17 +5,18 @@
 # Source0 file verified with key 0xE9CBDFC0ABC0A854 (scdbackup@gmx.net)
 #
 Name     : libburn
-Version  : 1.4.8
-Release  : 4
-URL      : http://files.libburnia-project.org/releases/libburn-1.4.8.tar.gz
-Source0  : http://files.libburnia-project.org/releases/libburn-1.4.8.tar.gz
-Source99 : http://files.libburnia-project.org/releases/libburn-1.4.8.tar.gz.sig
+Version  : 1.5.0
+Release  : 5
+URL      : http://files.libburnia-project.org/releases/libburn-1.5.0.tar.gz
+Source0  : http://files.libburnia-project.org/releases/libburn-1.5.0.tar.gz
+Source99 : http://files.libburnia-project.org/releases/libburn-1.5.0.tar.gz.asc
 Summary  : Library to read/write optical discs
 Group    : Development/Tools
 License  : GPL-2.0
 Requires: libburn-bin
 Requires: libburn-lib
-Requires: libburn-doc
+Requires: libburn-license
+Requires: libburn-man
 BuildRequires : pkgconfig(libcdio)
 
 %description
@@ -33,6 +34,8 @@ and Ben Jansens <xor@orodu.net>
 %package bin
 Summary: bin components for the libburn package.
 Group: Binaries
+Requires: libburn-license
+Requires: libburn-man
 
 %description bin
 bin components for the libburn package.
@@ -49,31 +52,40 @@ Provides: libburn-devel
 dev components for the libburn package.
 
 
-%package doc
-Summary: doc components for the libburn package.
-Group: Documentation
-
-%description doc
-doc components for the libburn package.
-
-
 %package lib
 Summary: lib components for the libburn package.
 Group: Libraries
+Requires: libburn-license
 
 %description lib
 lib components for the libburn package.
 
 
+%package license
+Summary: license components for the libburn package.
+Group: Default
+
+%description license
+license components for the libburn package.
+
+
+%package man
+Summary: man components for the libburn package.
+Group: Default
+
+%description man
+man components for the libburn package.
+
+
 %prep
-%setup -q -n libburn-1.4.8
+%setup -q -n libburn-1.5.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1515694751
+export SOURCE_DATE_EPOCH=1537206450
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -85,8 +97,11 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1515694751
+export SOURCE_DATE_EPOCH=1537206450
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/libburn
+cp COPYING %{buildroot}/usr/share/doc/libburn/COPYING
+cp COPYRIGHT %{buildroot}/usr/share/doc/libburn/COPYRIGHT
 %make_install
 
 %files
@@ -102,11 +117,16 @@ rm -rf %{buildroot}
 /usr/lib64/libburn.so
 /usr/lib64/pkgconfig/libburn-1.pc
 
-%files doc
-%defattr(-,root,root,-)
-%doc /usr/share/man/man1/*
-
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libburn.so.4
-/usr/lib64/libburn.so.4.101.0
+/usr/lib64/libburn.so.4.103.0
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/libburn/COPYING
+/usr/share/doc/libburn/COPYRIGHT
+
+%files man
+%defattr(-,root,root,-)
+/usr/share/man/man1/cdrskin.1
