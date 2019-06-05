@@ -6,7 +6,7 @@
 #
 Name     : libburn
 Version  : 1.5.0
-Release  : 5
+Release  : 6
 URL      : http://files.libburnia-project.org/releases/libburn-1.5.0.tar.gz
 Source0  : http://files.libburnia-project.org/releases/libburn-1.5.0.tar.gz
 Source99 : http://files.libburnia-project.org/releases/libburn-1.5.0.tar.gz.asc
