@@ -5,19 +5,20 @@
 # Source0 file verified with key 0xE9CBDFC0ABC0A854 (scdbackup@gmx.net)
 #
 Name     : libburn
-Version  : 1.5.0
-Release  : 6
-URL      : http://files.libburnia-project.org/releases/libburn-1.5.0.tar.gz
-Source0  : http://files.libburnia-project.org/releases/libburn-1.5.0.tar.gz
-Source99 : http://files.libburnia-project.org/releases/libburn-1.5.0.tar.gz.asc
-Summary  : Library to read/write optical discs
+Version  : 1.5.2
+Release  : 7
+URL      : http://files.libburnia-project.org/releases/libburn-1.5.2.tar.gz
+Source0  : http://files.libburnia-project.org/releases/libburn-1.5.2.tar.gz
+Source1 : http://files.libburnia-project.org/releases/libburn-1.5.2.tar.gz.asc
+Summary  : Library for reading, mastering and writing optical discs
 Group    : Development/Tools
 License  : GPL-2.0
-Requires: libburn-bin
-Requires: libburn-lib
-Requires: libburn-license
-Requires: libburn-man
+Requires: libburn-bin = %{version}-%{release}
+Requires: libburn-lib = %{version}-%{release}
+Requires: libburn-license = %{version}-%{release}
+Requires: libburn-man = %{version}-%{release}
 BuildRequires : pkgconfig(libcdio)
+BuildRequires : util-linux
 
 %description
 ------------------------------------------------------------------------------
@@ -34,8 +35,7 @@ and Ben Jansens <xor@orodu.net>
 %package bin
 Summary: bin components for the libburn package.
 Group: Binaries
-Requires: libburn-license
-Requires: libburn-man
+Requires: libburn-license = %{version}-%{release}
 
 %description bin
 bin components for the libburn package.
@@ -44,9 +44,11 @@ bin components for the libburn package.
 %package dev
 Summary: dev components for the libburn package.
 Group: Development
-Requires: libburn-lib
-Requires: libburn-bin
-Provides: libburn-devel
+Requires: libburn-lib = %{version}-%{release}
+Requires: libburn-bin = %{version}-%{release}
+Provides: libburn-devel = %{version}-%{release}
+Requires: libburn = %{version}-%{release}
+Requires: libburn = %{version}-%{release}
 
 %description dev
 dev components for the libburn package.
@@ -55,7 +57,7 @@ dev components for the libburn package.
 %package lib
 Summary: lib components for the libburn package.
 Group: Libraries
-Requires: libburn-license
+Requires: libburn-license = %{version}-%{release}
 
 %description lib
 lib components for the libburn package.
@@ -78,30 +80,39 @@ man components for the libburn package.
 
 
 %prep
-%setup -q -n libburn-1.5.0
+%setup -q -n libburn-1.5.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1537206450
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1572294022
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1537206450
+export SOURCE_DATE_EPOCH=1572294022
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/libburn
-cp COPYING %{buildroot}/usr/share/doc/libburn/COPYING
-cp COPYRIGHT %{buildroot}/usr/share/doc/libburn/COPYRIGHT
+mkdir -p %{buildroot}/usr/share/package-licenses/libburn
+cp %{_builddir}/libburn-1.5.2/COPYING %{buildroot}/usr/share/package-licenses/libburn/5405311284eab5ab51113f87c9bfac435c695bb9
+cp %{_builddir}/libburn-1.5.2/COPYRIGHT %{buildroot}/usr/share/package-licenses/libburn/a640a4b001c62a6f231213c9e10d5b985b05288b
 %make_install
 
 %files
@@ -120,13 +131,13 @@ cp COPYRIGHT %{buildroot}/usr/share/doc/libburn/COPYRIGHT
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libburn.so.4
-/usr/lib64/libburn.so.4.103.0
+/usr/lib64/libburn.so.4.105.0
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/libburn/COPYING
-/usr/share/doc/libburn/COPYRIGHT
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/libburn/5405311284eab5ab51113f87c9bfac435c695bb9
+/usr/share/package-licenses/libburn/a640a4b001c62a6f231213c9e10d5b985b05288b
 
 %files man
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 /usr/share/man/man1/cdrskin.1

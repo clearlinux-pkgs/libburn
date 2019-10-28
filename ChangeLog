@@ -1,3 +1,13 @@
+libburn-1.5.2.tar.gz Sat Oct 26 2019
+===============================================================================
+* Bug fix: No lock was obtained for setting up a fifo object
+* Bug fix: Stream recording was applied regardless whether the drive offers it.
+           This caused Xfburn failures with some MATSHITA laptop drives.
+* Bug fix: TDK Corporation was not recognized as manufacturer of DVD-R "TTH02"
+* Made libburn ready for building out-of-source.  Thanks Ross Burton.
+* New API calls burn_drive_get_feature_codes(), burn_drive_get_feature()
+* New cdrskin option --list_features
+
 libburn-1.5.0.tar.gz Sat Sep 15 2018
 ===============================================================================
 * Bug fix: cdrskin threw errno 22 on data file input if libburn is

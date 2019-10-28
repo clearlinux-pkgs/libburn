@@ -53,6 +53,8 @@ libburn.so.4:burn_drive_get_bd_r_pow
 libburn.so.4:burn_drive_get_best_speed
 libburn.so.4:burn_drive_get_disc
 libburn.so.4:burn_drive_get_drive_role
+libburn.so.4:burn_drive_get_feature
+libburn.so.4:burn_drive_get_feature_codes
 libburn.so.4:burn_drive_get_immed
 libburn.so.4:burn_drive_get_media_sno
 libburn.so.4:burn_drive_get_min_write_speed
