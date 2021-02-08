@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xE9CBDFC0ABC0A854 (scdbackup@gmx.net)
 #
 Name     : libburn
-Version  : 1.5.2
-Release  : 8
-URL      : http://files.libburnia-project.org/releases/libburn-1.5.2.tar.gz
-Source0  : http://files.libburnia-project.org/releases/libburn-1.5.2.tar.gz
-Source1  : http://files.libburnia-project.org/releases/libburn-1.5.2.tar.gz.asc
+Version  : 1.5.4
+Release  : 9
+URL      : http://files.libburnia-project.org/releases/libburn-1.5.4.tar.gz
+Source0  : http://files.libburnia-project.org/releases/libburn-1.5.4.tar.gz
+Source1  : http://files.libburnia-project.org/releases/libburn-1.5.4.tar.gz.asc
 Summary  : Library to read/write optical discs
 Group    : Development/Tools
 License  : GPL-2.0
@@ -18,7 +18,6 @@ Requires: libburn-lib = %{version}-%{release}
 Requires: libburn-license = %{version}-%{release}
 Requires: libburn-man = %{version}-%{release}
 BuildRequires : pkgconfig(libcdio)
-BuildRequires : util-linux
 
 %description
 ------------------------------------------------------------------------------
@@ -79,15 +78,15 @@ man components for the libburn package.
 
 
 %prep
-%setup -q -n libburn-1.5.2
-cd %{_builddir}/libburn-1.5.2
+%setup -q -n libburn-1.5.4
+cd %{_builddir}/libburn-1.5.4
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1604887335
+export SOURCE_DATE_EPOCH=1612800752
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -107,11 +106,11 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1604887335
+export SOURCE_DATE_EPOCH=1612800752
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libburn
-cp %{_builddir}/libburn-1.5.2/COPYING %{buildroot}/usr/share/package-licenses/libburn/5405311284eab5ab51113f87c9bfac435c695bb9
-cp %{_builddir}/libburn-1.5.2/COPYRIGHT %{buildroot}/usr/share/package-licenses/libburn/a640a4b001c62a6f231213c9e10d5b985b05288b
+cp %{_builddir}/libburn-1.5.4/COPYING %{buildroot}/usr/share/package-licenses/libburn/5405311284eab5ab51113f87c9bfac435c695bb9
+cp %{_builddir}/libburn-1.5.4/COPYRIGHT %{buildroot}/usr/share/package-licenses/libburn/a640a4b001c62a6f231213c9e10d5b985b05288b
 %make_install
 
 %files
@@ -130,7 +129,7 @@ cp %{_builddir}/libburn-1.5.2/COPYRIGHT %{buildroot}/usr/share/package-licenses/
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libburn.so.4
-/usr/lib64/libburn.so.4.105.0
+/usr/lib64/libburn.so.4.107.0
 
 %files license
 %defattr(0644,root,root,0755)
